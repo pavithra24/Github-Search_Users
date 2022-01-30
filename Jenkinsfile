@@ -19,11 +19,11 @@ pipeline {
             }
         }
 
-        stage('Install Node.js dependencies') {
-            steps {
-                sh 'npm install'
-            }
-        }
+//         stage('Install Node.js dependencies') {
+//             steps {
+//                 sh 'npm install'
+//             }
+//         }
 
         stage('Build image') {
           steps{
