@@ -1,4 +1,4 @@
-// Get the GitHub username input form
+// Get the GitHub username input form test
 const gitHubForm = document.getElementById('gitHubForm');
 
 // Listen for submissions on GitHub username input form
