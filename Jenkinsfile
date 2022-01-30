@@ -25,36 +25,31 @@ pipeline {
 //             }
 //         }
 
-        stage('Build image') {
-          steps{
-            script {
-              dockerImage = docker.build(dockerhuburl + ":$BUILD_NUMBER")
-            }
-          }
-        }
 
-        stage('Test image') {
-            steps {
-                sh 'docker run -i ' + dockerhuburl + ':$BUILD_NUMBER npm test'
+             stage('Building image') {
+                steps{
+                    script {
+                        dockerImage = docker.build dockerhuburl + ":$BUILD_NUMBER"
+                    }
+                }
             }
-        }
 
-        stage('Deploy image') {
-          steps{
-            script {
-              docker.withRegistry(dockerregistry, dockerhubcrd ) {
-                dockerImage.push("${env.BUILD_NUMBER}")
-                dockerImage.push("latest")
-              }
-            }
-          }
-        }
 
-        stage('Remove image') {
-          steps{
-            sh "docker rmi $dockerhuburl:$BUILD_NUMBER"
-          }
-        }
+                stage('Upload Image to Docker hub') {
+                    steps{
+                        script {
+                            docker.withRegistry( '', dockerhubcrd ) {
+                                dockerImage.push()
+                            }
+                        }
+                    }
+                }
+
+        stage('Remove Unused docker image') {
+                    steps{
+                        sh "docker rmi $dockerhuburl:$BUILD_NUMBER"
+                    }
+                }
     }
 }
 EOF
