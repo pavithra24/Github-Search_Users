@@ -4,8 +4,13 @@ pipeline {
         registry = "paavithrav07/github-search_users"
         registryCredential = 'dockerhub'
         dockerImage = ''
+        githuburl = "pavithra24/Github-Search_Users"
     }
     stages {
+            stage('Clone git repo') {
+                        steps {
+                            git 'https://github.com/' + githuburl
+                        }
          stage('Building image') {
             steps{
                 script {
