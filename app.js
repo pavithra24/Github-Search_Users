@@ -1,4 +1,4 @@
-// Get the GitHub username input form test
+// Get the GitHub username input form
 const gitHubForm = document.getElementById('gitHubForm');
 
 // Listen for submissions on GitHub username input form
@@ -14,77 +14,84 @@ gitHubForm.addEventListener('submit', (e) => {
     let gitHubUsername = usernameInput.value;
 
     // Run GitHub API function, passing in the GitHub username
-    requestUserRepos(gitHubUsername);
+    loadUserRepo(gitHubUsername);
 
 })
 
+/** Calling GIT API **/
+let fetchUserRepos = async(userName) =>{
+  const url = `https://api.github.com/users/${userName}/repos`;
+  const response = await fetch(url);
+  if (response.status !== 200) {
+    throw new Error("User not found");
+  }
+  const repos = await response.json();
+  return repos;
+}
 
-function requestUserRepos(username) {
+/** loading data **/
+let loadUserRepo = (userName)=>{
+  clearReposInDom();
 
-    // Create new XMLHttpRequest object
-    const xhr = new XMLHttpRequest();
+  fetchUserRepos(userName).then(repos =>{
+   addReposInDom(repos);
+ })
+ .catch(error=>{
+   showErrorMessage(userName)
+ })
+};
 
-    // GitHub endpoint, dynamically passing in specified username
-    const url = `https://api.github.com/users/${username}/repos`;
+let clearReposInDom = () =>{
+  let ul = document.getElementById('userRepos');
+  ul.innerHTML=""
+}
+/** Adding repos to HTML **/
+let addReposInDom = (repos)=>{
+  // Get the ul with id of of userRepos
+  let ul = document.getElementById('userRepos');
+  let p = document.createElement('p');
+  p.innerHTML = (`<p><strong>Number of Public Repos:<span class="badge badge-secondary">${repos.length}</span></p>`)
+  ul.appendChild(p);
 
-    // Open a new connection, using a GET request via URL endpoint
-    // Providing 3 arguments (GET/POST, The URL, Async True/False)
-    xhr.open('GET', url, true);
 
-    // When request is received
-    // Process it here
-    xhr.onload = function() {
+  for (let repo of repos) {
+      // Create variable that will create li's to be added to ul
+      let li = document.createElement('li');
+      li.style.border="0px"
 
-        // Parse API data into JSON
-        const data = JSON.parse(this.response);
-        let root = document.getElementById('userRepos');
-        while (root.firstChild) {
-            root.removeChild(root.firstChild);
-        }
-        if (data.message === "Not Found") {
-            let ul = document.getElementById('userRepos');
+      // Add Bootstrap list item class to each li
+      li.classList.add('list-group-item')
 
-            // Create variable that will create li's to be added to ul
-            let li = document.createElement('li');
+      // Create the html markup for each li
+      li.innerHTML = (`
+      <div class="card">
+      <div class="card-body">
+      <p><strong>Repo:</strong> ${repo.name}</p>
+      <p><strong>Description:</strong> ${repo.description}</p>
+      <p><strong>URL:</strong> <a href="${repo.html_url}">${repo.html_url}</a></p>
+      </div>
+     </div>
+  `);
 
-            // Add Bootstrap list item class to each li
-            li.classList.add('list-group-item')
-                // Create the html markup for each li
-            li.innerHTML = (`
-                <p><strong>No account exists with username:</strong> ${username}</p>`);
-            // Append each li to the ul
-            ul.appendChild(li);
-        } else {
+      // Append each li to the ul
+      ul.appendChild(li);
 
-            // Get the ul with id of of userRepos
-            let ul = document.getElementById('userRepos');
-            let p = document.createElement('p');
-            p.innerHTML = (`<p><strong>Number of Public Repos:${data.length}</p>`)
-            ul.appendChild(p);
-            // Loop over each object in data array
-            for (let i in data) {
-                // Create variable that will create li's to be added to ul
-                let li = document.createElement('li');
+  }
 
-                // Add Bootstrap list item class to each li
-                li.classList.add('list-group-item')
+}
 
-                // Create the html markup for each li
-                li.innerHTML = (`
-                <p><strong>Repo:</strong> ${data[i].name}</p>
-                <p><strong>Description:</strong> ${data[i].description}</p>
-                <p><strong>URL:</strong> <a href="${data[i].html_url}">${data[i].html_url}</a></p>
-            `);
+/** showing error in HTML**/
+let showErrorMessage = (userName) =>{
+  let ul = document.getElementById('userRepos');
 
-                // Append each li to the ul
-                ul.appendChild(li);
+  // Create variable that will create li's to be added to ul
+  let li = document.createElement('li');
 
-            }
-
-        }
-    }
-
-    // Send the request to the server
-    xhr.send();
-
+  // Add Bootstrap list item class to each li
+  li.classList.add('list-group-item')
+      // Create the html markup for each li
+  li.innerHTML = (`
+      <p><strong>No account exists with username:</strong> ${userName}</p>`);
+  // Append each li to the ul
+  ul.appendChild(li);
 }
