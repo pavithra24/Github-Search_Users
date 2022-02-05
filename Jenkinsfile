@@ -1,48 +1,39 @@
 pipeline {
     agent any
     environment {
-        registry = "paavithrav07/github-search_users"
-        registryCredential = 'dockerhub'
-        dockerImage = ''
-        githuburl = "pavithra24/Github-Search_Users"
+        PROJECT_ID = 'affable-cacao-340406'
+        CLUSTER_NAME = 'cluster-cicd'
+        LOCATION = 'us-west1-a'
+        CREDENTIALS_ID = 'gke'
     }
     stages {
-            stage('Clone git repo') {
-                        steps {
-                            git 'https://github.com/' + githuburl
-                        }
-                        }
-         stage('Building image') {
-            steps{
+        stage("Checkout code") {
+            steps {
+                checkout scm
+            }
+        }
+        stage("Build image") {
+            steps {
                 script {
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                    myapp = docker.build("paavithrav07/hello:${env.BUILD_ID}")
                 }
             }
         }
-        stage('Upload Image to Docker hub') {
-            steps{
+        stage("Push image") {
+            steps {
                 script {
-                    docker.withRegistry( '', registryCredential ) {
-                        dockerImage.push()
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                            myapp.push("latest")
+                            myapp.push("${env.BUILD_ID}")
                     }
                 }
             }
         }
-        stage('Remove Unused docker image') {
+        stage('Deploy to GKE') {
             steps{
-                sh "docker rmi $registry:$BUILD_NUMBER"
+                sh "sed -i 's/hello:latest/hello:${env.BUILD_ID}/g' deployment.yaml"
+                step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
             }
         }
-
-        stage('Deploy k8s') {
-              steps {
-                kubernetesDeploy(
-                  kubeconfigId: 'k8s',
-                  configs: 'master/k8s.yml',
-                  enableConfigSubstitution: true
-                )
-              }
-            }
-
     }
 }
