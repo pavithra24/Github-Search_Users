@@ -1,9 +1,9 @@
 pipeline {
     agent any
     environment {
-        PROJECT_ID = 'affable-cacao-340406'
-        CLUSTER_NAME = 'cluster-cicd'
-        LOCATION = 'us-west1-a'
+        PROJECT_ID = 'jenkins-cicd-340413'
+        CLUSTER_NAME = 'k8s-cluster'
+        LOCATION = 'us-central1-c'
         CREDENTIALS_ID = 'gke'
     }
     stages {
