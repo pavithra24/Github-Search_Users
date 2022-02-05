@@ -19,7 +19,7 @@ spec:
         - name: hello
           image: paavithrav07/hello:latest
           ports:
-            - containerPort: 8080
+            - containerPort: 5000
 
 ---
 apiVersion: v1
@@ -32,5 +32,5 @@ spec:
     app: hello
   ports:
     - protocol: TCP
-      port: 8080
-      targetPort: 4141
+      port: 5000
+      targetPort: 5000
