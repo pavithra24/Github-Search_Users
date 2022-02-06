@@ -2,22 +2,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello
+  name: gitsearch
   labels:
-    app: hello
+    app: gitsearch
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hello
+      app: gitsearch
   template:
     metadata:
       labels:
-        app: hello
+        app: gitsearch
     spec:
       containers:
-        - name: hello
-          image: paavithrav07/hello:latest
+        - name: gitsearch
+          image: paavithrav07/gitsearch:latest
           ports:
             - containerPort: 80
           resources:
@@ -30,11 +30,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: hello
+  name: gitsearch
 spec:
   type: LoadBalancer
   selector:
-    app: hello
+    app: gitsearch
   ports:
     - protocol: TCP
       port: 80
