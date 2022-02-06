@@ -1,3 +1,3 @@
 FROM nginx:alpine
-COPY . /usr/share/nginx/html
+COPY app.js index.html /usr/share/nginx/html
 EXPOSE 80
