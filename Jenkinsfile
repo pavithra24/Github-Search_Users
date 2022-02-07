@@ -1,17 +1,20 @@
 pipeline {
     agent any
+// set env variables for k8s cluster
     environment {
         PROJECT_ID = 'jenkins-cicd-340413'
         CLUSTER_NAME = 'k8s-cluster'
         LOCATION = 'us-central1-c'
         CREDENTIALS_ID = 'gke'
     }
+// get code from scm(Github)
     stages {
         stage("Checkout code") {
             steps {
                 checkout scm
             }
         }
+// Building dockerfile from repo using Docker pipeline plugin and push to dockerhub
         stage("Build image") {
             steps {
                 script {
@@ -29,6 +32,7 @@ pipeline {
                 }
             }
         }
+// deploy the container from dokcerhub to k8s cluster on GKE using Google kubernetes plugin
         stage('Deploy to GKE') {
             steps{
                 sh 'ls -ltr'

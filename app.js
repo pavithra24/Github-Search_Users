@@ -1,4 +1,4 @@
-// Get the GitHub username input form
+// Get the GitHub username input form API to search GITHUB users
 const gitHubForm = document.getElementById('gitHubForm');
 
 // Listen for submissions on GitHub username input form
@@ -7,18 +7,18 @@ gitHubForm.addEventListener('submit', (e) => {
     // Prevent default form submission action
     e.preventDefault();
 
-    // Get the GitHub username input field on the DOM
+    // Get the GitHub username input field on the Document Object Model
     let usernameInput = document.getElementById('usernameInput');
 
     // Get the value of the GitHub username input field
     let gitHubUsername = usernameInput.value;
 
-    // Run GitHub API function, passing in the GitHub username
+    // Run GitHub API function, passing in the GitHub username to load the user repo
     loadUserRepo(gitHubUsername);
 
 })
 
-/** Calling GIT API **/
+/** main function calling Calling GIT API **/
 let fetchUserRepos = async(userName) =>{
   const url = `https://api.github.com/users/${userName}/repos`;
   const response = await fetch(url);
@@ -29,7 +29,7 @@ let fetchUserRepos = async(userName) =>{
   return repos;
 }
 
-/** loading data **/
+/** loading data/repos **/
 let loadUserRepo = (userName)=>{
   clearReposInDom();
 
