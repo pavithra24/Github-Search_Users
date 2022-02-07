@@ -4,10 +4,10 @@ This application will search the git hub users and list all public repos
 Repo consistes of CI/CD pipeline setup code, which will trigger the Jenkins pipeline automatically if there's any new commit in the code using webhook
 
 **Prerequisites**
-   > have an active Google Cloud Platform project and administrator credentials for this project
-   > have at least one multi-node Kubernetes cluster running on Google Kubernetes Engine (GKE) available on free tier account
-   > have a GitHub account
-   > have a Docker Hub account
+   > Have an active Google Cloud Platform project and administrator credentials for this project
+   > Have at least one multi-node Kubernetes cluster running on Google Kubernetes Engine (GKE) available on free tier account
+   > Have a GitHub account
+   > Have a Docker Hub account
    > Create VM instance on GCP(Ubuntu 18.04) install Jenkins, Docker, Kubectl.
    > Install suggested plugins along with Docker plugin and Google kubernets plugin on jenkins
    > Add dockerhub credentials and GKE JSON key of the service account to your Jenkins Credentials
