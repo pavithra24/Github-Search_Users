@@ -22,7 +22,7 @@ Application service is written in Javascript and HTML, which is **app.js** and *
 **Dockerfile**
  > Deploying a Static HTML Site with Nginx.
   
-**** Deployment.yaml****
+**Deployment.yaml**
   > Defines how the built image should be deployed on Kubernetes. Replace the DOCKER-HUB-USERNAME in the definition below with your Docker Hub username.
   > Definition pulls the built container from Docker Hub and creates a new deployment with it in your Kubernetes cluster. It also creates a LoadBalancer service     so that the deployment can be accessed from outside the cluster.
 
