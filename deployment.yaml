@@ -1,3 +1,4 @@
+# deployment manifest to create a pod with 1 replica, change the containers image name as your dockerhub username
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -28,6 +29,7 @@ spec:
               cpu: 200m
               memory: 216Mi
 
+# LoadBalancer service to access the application from outside the cluster
 ---
 apiVersion: v1
 kind: Service
