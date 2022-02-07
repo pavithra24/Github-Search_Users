@@ -27,11 +27,11 @@ Application service is written in Javascript and HTML, which is **app.js** and *
   > Definition pulls the built container from Docker Hub and creates a new deployment with it in your Kubernetes cluster. It also creates a LoadBalancer service     so that the deployment can be accessed from outside the cluster.
 
 **gitsearch.js**
-  > Simple k6 script to check the performance of the applictaion for 1000 users for 1 minute, replace the your loadbalancer ip to run the script.
+  > Simple k6 script to check the performance of the applictaion for 1000 users for 1 minute, replace with your loadbalancer ip to run the script.
         Note: Install k6 to run this script 
  
  **Result analysis of Production Ready Application.docx**
-  > Result analysis document with target architecture, recommended sizing.
+  > Result analysis document with recommended kubernets sizing and target architecture.
 
 
   
