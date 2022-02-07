@@ -23,11 +23,11 @@ Application service is written in Javascript and HTML, which is **app.js** and *
  > Deploying a Static HTML Site with Nginx.
   
 **** Deployment.yaml****
-  > Defines how the built container should be deployed on Kubernetes. Replace the DOCKER-HUB-USERNAME in the definition below with your Docker Hub username.
+  > Defines how the built image should be deployed on Kubernetes. Replace the DOCKER-HUB-USERNAME in the definition below with your Docker Hub username.
   > Definition pulls the built container from Docker Hub and creates a new deployment with it in your Kubernetes cluster. It also creates a LoadBalancer service     so that the deployment can be accessed from outside the cluster.
 
 **gitsearch.js**
-  > simple k6 script to chek the performance of the applictaion for 1000 users for 1 minute, replace the your loadbalancer ip to run the script.
+  > simple k6 script to check the performance of the applictaion for 1000 users for 1 minute, replace the your loadbalancer ip to run the script.
         Note: Install k6 to run this script 
  
  **Result analysis of Production Ready Application.docx**
