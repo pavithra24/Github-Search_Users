@@ -8,7 +8,7 @@ Repo consistes of CI/CD pipeline setup code, which will trigger the Jenkins pipe
    > Have at least one multi-node Kubernetes cluster running on Google Kubernetes Engine (GKE) available on free tier account.
    > Have a GitHub account.
    > Have a Docker Hub account.
-   > Create VM instance on GCP(Ubuntu 18.04) install Jenkins, Docker, Kubectl.
+   > Create VM instance on GCP(Ubuntu 18.04). Install Jenkins, Docker, Kubectl in the VM instance created.
    > Install suggested plugins along with Docker plugin and Google kubernets plugin on jenkins.
    > Add dockerhub credentials and GKE JSON key of the service account to your Jenkins Credentials.
     
