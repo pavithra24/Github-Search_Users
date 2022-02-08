@@ -31,7 +31,7 @@ Application service is written in Javascript and HTML, which is **app.js** and *
         Note: Install k6 to run this script 
  
  **Result analysis of Production Ready Application.docx**
-  > Result analysis document with recommended kubernets sizing and target architecture.
+  > Result analysis document with recommended kubernetes sizing and target architecture.
 
 
   
