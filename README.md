@@ -1,7 +1,7 @@
 # Github-Search_Users
 This application will search the git hub users and list all public repos
 
-Repo consistes of CI/CD pipeline setup code, which will trigger the Jenkins pipeline automatically if there's any new commit in the code using webhook
+Repo consistes of CI/CD pipeline setup code, which will trigger the Jenkins pipeline automatically if there's any new commit in the code using webhook.
 
 **Prerequisites**
    > Have an active Google Cloud Platform project and administrator credentials for this project.
