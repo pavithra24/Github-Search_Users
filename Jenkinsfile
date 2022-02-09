@@ -32,6 +32,7 @@ pipeline {
                 }
             }
         }
+
 // deploy the container from dokcerhub to k8s cluster on GKE using Google kubernetes plugin
         stage('Deploy to GKE') {
             steps{
